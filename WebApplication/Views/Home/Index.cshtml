@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    //Layout = " ";
+}
+<h4>ViewData</h4>
+<tbody>
+    @foreach (var user in (IEnumerable<User>)ViewData["UserInfo"])
+    {
+        <tr>
+            <td> @user.id </td>
+            <td>@user.Name </td>
+        </tr>
+    }
+
+
+</tbody>
+@ViewBag.Dt
+<h4>ViewBag</h4>
+<table>
+    @foreach (var user in ViewBag.obj)
+    {
+        <tr>
+            <td>@user.id</td>
+            <td>@user.Name</td>
+        </tr>
+    }
+</table>
+
+<h4>TempData</h4>
+<table>
+    @foreach (var user in TempData["UserInfo"] as List<User>)
+    {
+        <tr>
+            <td>@user.id</td>
+            <td>@user.Name</td>
+        </tr>
+    }
+</table>
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
