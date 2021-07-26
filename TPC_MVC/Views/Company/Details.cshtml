@@ -1,0 +1,63 @@
+﻿@model TPC_MVC.Models.CompanyViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h3>Company Details</h3>
+<html>
+<head>
+    <style>
+        .row{
+            background-color:lightblue;
+        }
+    </style>
+</head>
+</html>
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Criteria)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Criteria)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VisitingDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VisitingDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Package)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Package)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Cid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

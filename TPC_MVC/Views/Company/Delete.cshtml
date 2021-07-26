@@ -1,0 +1,66 @@
+﻿@model TPC_MVC.Models.CompanyViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<h2>Delete Company</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<html>
+<head>
+    <style>
+        .row {
+            background-color: lightcoral;
+        }
+    </style>
+</head>
+<div>
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Criteria)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Criteria)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VisitingDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VisitingDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Package)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Package)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Cid" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
