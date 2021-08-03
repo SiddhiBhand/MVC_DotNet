@@ -1,0 +1,81 @@
+﻿@page "/Edit/{Id}"
+
+@using BlazorCrudOperations.Data
+@using BlazorCrudOperations.Models
+
+@inject NavigationManager NavigationManager
+@inject TestDBRepository repo
+
+<h2>Edit Employee</h2>
+<hr />
+<form>
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@obj.EmpName" />
+            </div>
+            <div class="form-group">
+                <label for="Age" class="control-label">Age</label>
+                <input form="Age" class="form-control" @bind="@obj.Age" />
+            </div>
+            <div class="form-group">
+                <label for="EmailId" class="control-label">Email</label>
+                <input form="EmailId" class="form-control" @bind="@obj.EmailId" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@UpdateEmployee" value="Update" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    EmployeeViewModel obj = new EmployeeViewModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var getResult = await Task.Run(() => repo.GetEmployees());
+
+        obj = getResult.Where(e => e.EmpId == Convert.ToInt32(Id)).Select(e => new EmployeeViewModel
+        {
+            EmpId = e.EmpId,
+            EmpName = e.EmpName,
+            Age = e.Age,
+            EmailId = e.EmailId
+        }).FirstOrDefault();
+    }
+
+    protected async void UpdateEmployee()
+    {
+        Employee e = new Employee()
+        {
+            EmpId = obj.EmpId,
+            EmpName = obj.EmpName,
+            Age = obj.Age,
+            EmailId = obj.EmailId
+        };
+
+        await Task.Run(() => repo.EditEmployee(e));
+
+        NavigationManager.NavigateTo("Employees");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Employees");
+    }
+}
+

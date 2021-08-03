@@ -1,0 +1,69 @@
+﻿
+@using TPCBlazor.Data
+@using TPCBlazor.Models
+
+@inject NavigationManager NavigationManager
+@inject TestDBRepository repo
+@code {
+    CompanyViewModel obj = new CompanyViewModel();
+    protected async void CreateCompany()
+    {
+        Company e = new Company()
+        {
+            Name = obj.Name,
+            Location = obj.Location,
+            Criteria = obj.Criteria,
+            VisitingDate=obj.VisitingDate,
+            Package=obj.Package,
+            Role=obj.Role
+        };
+        await Task.Run(() => repo.CreateCompany(e));
+        NavigationManager.NavigateTo("Companies");
+    }
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("Companies");
+    }
+}
+@page "/Create"
+<h3>Add Company</h3>
+<hr />
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="@obj.Name" />
+            </div>
+            <div class="form-group">
+                <label for="Location" class="control-label">Location</label>
+                <input form="Location" class="form-control" @bind="@obj.Location" />
+            </div>
+            <div class="form-group">
+                <label for="Criteria" class="control-label">Criteria</label>
+                <input form="Criteria" class="form-control" @bind="@obj.Criteria" />
+            </div>
+            <div class="form-group">
+                <label for="VisitingDate" class="control-label">Visiting Date</label>
+                <input form="VisitingDate" class="form-control" @bind="@obj.VisitingDate" />
+            </div>
+            <div class="form-group">
+                <label for="Package" class="control-label">Package</label>
+                <input form="Package" class="form-control" @bind="@obj.Package" />
+            </div>
+            <div class="form-group">
+                <label for="Role" class="control-label">Role</label>
+                <input form="Role" class="form-control" @bind="@obj.Role" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateCompany" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+
+    </div>
+</form>

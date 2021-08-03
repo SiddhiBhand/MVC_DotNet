@@ -1,0 +1,70 @@
+﻿@code{
+    List<CompanyViewModel> companies;
+    protected override async Task OnInitializedAsync()
+    {
+        var getResult = await Task.Run(() => repo.GetEmployees());
+        companies = getResult.Select(e => new CompanyViewModel
+        {
+            Cid = e.Cid,
+            Name = e.Name,
+            Location = e.Location,
+            Criteria = e.Criteria,
+            VisitingDate = e.VisitingDate,
+            Package = e.Package,
+            Role = e.Role
+        }).ToList();
+    }
+}
+
+@page "/Companies"
+
+@using TPCBlazor.Data
+@using TPCBlazor.Models
+
+@inject TestDBRepository repo
+
+<NavLink class="nav-link" href="Create">
+    <span class="oi oi-plus">Add New</span>
+</NavLink>
+<h3>Employee Information</h3>
+@if (companies is null)
+{
+    <p><em>Loading...!</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Criteria</th>
+                <th>Visiting Date</th>
+                <th>Package</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in companies)
+            {
+                <tr>
+                    <td>@obj.Name</td>
+                    <td>@obj.Location</td>
+                    <td>@obj.Criteria</td>
+                    <td>@obj.VisitingDate</td>
+                    <td>@obj.Package</td>
+                    <td>@obj.Role</td>
+                    <td>
+                        <a class="nav-link" href="Edit/@obj.Cid">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                        <a class="nav-link" href="Delete/@obj.Cid">
+                            <span class="oi oi-trash" aria-hidden="true">Delete</span>
+
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
